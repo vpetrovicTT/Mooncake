@@ -70,6 +70,12 @@ cmake --build "${BUILD_DIR_ABS}" --target \
     mooncake_master mooncake_client build_store_rs \
     --parallel "${BUILD_JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)}"
 
+CLASSIC_TE_SHARED_LIB="${BUILD_DIR_ABS}/mooncake-transfer-engine/src/libtransfer_engine.so"
+if [[ ! -f "${CLASSIC_TE_SHARED_LIB}" ]]; then
+    echo "Store-RS Classic TE wheel requires ${CLASSIC_TE_SHARED_LIB}; configure with -DBUILD_SHARED_LIBS=ON" >&2
+    exit 1
+fi
+
 cmake --install "${BUILD_DIR_ABS}" \
     --component python \
     --prefix "${STORE_RS_PYTHON_PREFIX}"

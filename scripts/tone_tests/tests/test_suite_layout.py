@@ -161,6 +161,8 @@ class TestSuiteLayout(unittest.TestCase):
         )
         self.assertIn("use-store-rs:", wheel_workflow)
         self.assertIn("default: false", wheel_workflow)
+        self.assertIn("-DBUILD_SHARED_LIBS=ON", wheel_workflow)
+        self.assertIn('package_dir / "libtransfer_engine.so"', wheel_workflow)
 
 
 if __name__ == "__main__":
